@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amicable Numbers</title>
+</head>
+<body>
+<h1>Amicable Numbers</h1>
+<h2>CS20 Assignment 6</h2>
+
+<form>
+  <label for="num1">First Number:</label><br>
+  <input type="number" id="num1" name="num1"><br>
+  <label for="num2">Second Number:</label><br>
+  <input type="number" id="num2" name="num2"><br><br>
+  <input type ="button" value="Submit"  name="btn1" onclick="amicableNum()">
+</form> 
+
+<p id="amicable"></p>
+<p id="factors"></p>
+
+<script>
+function amicableNum() {
+  var x = document.getElementById("num1");
+  num1 = parseInt(x.value);
+  x = document.getElementById("num2");
+  num2 = parseInt(x.value);
+  factors1= findFactors(num1);
+  factors2= findFactors(num2);
+  if(isAmicable(num1, num2)){
+    document.getElementById("amicable").innerHTML = "The numbers:  " + num1 + " and " + num2 + " are amicable"
+  }
+  else{
+    document.getElementById("amicable").innerHTML = "The numbers:  " + num1 + " and " + num2 + " are not amicable"
+  }
+  document.getElementById("factors").innerHTML = num1 + " factors: " + factors1+'</br>'+ num2 + " factors: " + factors2;
+}
+
+// returns true if x is a factor of y
+function isAFactor(x,y) {
+  if(x % y == 0) {
+    return true;
+  }
+  return false;
+}
+
+// returns array of factors for number x
+function findFactors(x) {
+  var factors = [];
+  for(let i = 1; i < x; i++) {
+    // check if number is a factor
+    if(isAFactor(x, i))
+      factors.push(i);
+  }
+  return factors;
+}
+
+//returns sum of values in an array x
+function sumFactors(x) {
+  sum = x.reduce((a, b) => {
+    return a + b;
+  });
+  return sum;
+}
+
+// returns true if x and y are amicable
+function isAmicable(x,y) {
+  factors1 = findFactors(x);
+  factors2 = findFactors(y);
+  sum1 = sumFactors(factors1);
+  sum2 = sumFactors(factors2);
+  if(x == sum2 && y == sum1) {
+    return true;
+  }
+  return false;
+}
+</script>
+
+</body>
+</html>
